@@ -22,9 +22,6 @@ function NewCommentForm({ place, onSubmit }) {
         fetchData()
     }, [])
 
-    let authorOptions = authors.map(author => {
-        return <option key={author.userId} value={author.userId}>{author.firstName} {author.lastName}</option>
-    })
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -35,6 +32,12 @@ function NewCommentForm({ place, onSubmit }) {
             rant: false,
             authorId: authors[0]?.userId
         })
+    }
+
+    const { currentUser } = useContext(currentUser)
+
+    if(!currentUser) {
+        return <p>You must be logged in to leave a rant or rave.</p>
     }
 
     return (
